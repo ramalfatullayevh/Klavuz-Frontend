@@ -1,16 +1,13 @@
-import Register from "./Register";
-import Login from "./Login";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App.jsx'
+import './index.css'
 
-function App() {
-  return (
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <App />
     </BrowserRouter>
-  );
-}
-
-export default App;
+  </React.StrictMode>,
+)
