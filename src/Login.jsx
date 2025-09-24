@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Mail, Lock, Eye, EyeOff, BookOpen, Users, TrendingUp, Star, ArrowRight, Sparkles, Shield, Zap, Award } from 'lucide-react';
 
+import { Link } from 'react-router-dom';
+
+
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [animatedElements, setAnimatedElements] = useState(false);
@@ -284,14 +287,17 @@ export default function LoginPage() {
                     </div>
 
                     {/* Sign Up Link */}
-                    <div className="text-center">
-                      <p className="text-gray-600">
-                        Hesabınız yok mu?{' '}
-                        <span className="text-orange-500 hover:text-orange-600 cursor-pointer font-semibold hover:underline transition-all">
-                          Kayıt Ol
-                        </span>
-                      </p>
-                    </div>
+                   <div className="text-center">
+  <p className="text-gray-600">
+    Hesabınız yok mu?{' '}
+    <Link 
+      to="/register"
+      className="text-orange-500 hover:text-orange-600 cursor-pointer font-semibold hover:underline transition-all"
+    >
+      Kayıt Ol
+    </Link>
+  </p>
+</div>
 
                     {/* Trust Badges */}
                     <div className="mt-6 lg:mt-8 p-4 lg:p-6 bg-gradient-to-r from-gray-50 to-orange-50 rounded-xl border border-orange-100">
