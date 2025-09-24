@@ -1,8 +1,7 @@
 import Register from "./Register";
 import Login from "./Login";
 import Error from "./Error";
-
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom"; 
 
 function App() {
   return (
@@ -11,6 +10,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} />
         <Route path="/error" element={<Error />} />
+\        <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>
   );
