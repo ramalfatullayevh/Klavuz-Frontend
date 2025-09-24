@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Home, Search, ArrowLeft, BookOpen, Users, TrendingUp, Star, Sparkles, AlertCircle, MapPin, Clock, RefreshCw } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // Bunu ekle
 
 export default function NotFoundPage() {
   const [animatedElements, setAnimatedElements] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate(); // Bunu ekle
 
   useEffect(() => {
     setAnimatedElements(true);
@@ -11,7 +13,30 @@ export default function NotFoundPage() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log('Searching for:', searchQuery);
+    if (searchQuery.trim()) {
+      // Arama işlevselliği buraya gelecek
+      console.log('Searching for:', searchQuery);
+    }
+  };
+
+  // Ana sayfaya dönüş fonksiyonu
+  const goToHome = () => {
+    navigate('/');
+  };
+
+  // Geri gitme fonksiyonu
+  const goBack = () => {
+    navigate(-1);
+  };
+
+  // Sayfayı yenileme fonksiyonu
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
+  // Hızlı linklere gitme fonksiyonu
+  const navigateTo = (path) => {
+    navigate(path);
   };
 
   const floatingElements = [
@@ -113,29 +138,22 @@ export default function NotFoundPage() {
 
                 {/* Error Status Info */}
                 <div className="space-y-4 lg:space-y-6 mb-8 lg:mb-10">
-                  {[
-                    { icon: AlertCircle, title: 'Durum', desc: 'Sayfa Bulunamadı', status: 'Hata 404' },
-                    
-                  ].map((item, index) => (
-                    <div 
-                      key={index}
-                      className={`flex items-center space-x-3 lg:space-x-4 group transition-all duration-500 ${
-                        animatedElements ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
-                      }`}
-                      style={{ transitionDelay: `${index * 200}ms` }}
-                    >
-                      <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl lg:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg">
-                        <item.icon className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between">
-                          <h3 className="text-white font-semibold text-base lg:text-lg">{item.title}</h3>
-                          <span className="text-red-400 text-xs lg:text-sm font-medium">{item.status}</span>
-                        </div>
-                        <p className="text-gray-400 text-sm mt-1">{item.desc}</p>
-                      </div>
+                  <div className={`flex items-center space-x-3 lg:space-x-4 group transition-all duration-500 ${
+                    animatedElements ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
+                  }`}
+                  style={{ transitionDelay: `200ms` }}
+                  >
+                    <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl lg:rounded-2xl flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-lg">
+                      <AlertCircle className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
                     </div>
-                  ))}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-white font-semibold text-base lg:text-lg">Durum</h3>
+                        <span className="text-red-400 text-xs lg:text-sm font-medium">Hata 404</span>
+                      </div>
+                      <p className="text-gray-400 text-sm mt-1">Sayfa Bulunamadı</p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Helpful Tips */}
@@ -182,7 +200,7 @@ export default function NotFoundPage() {
                 </div>
 
                 {/* Search Box */}
-                <div className={`mb-8 lg:mb-10 transition-all duration-700 delay-200 ${
+                <form onSubmit={handleSearch} className={`mb-8 lg:mb-10 transition-all duration-700 delay-200 ${
                   animatedElements ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
                 }`}>
                   <div className="relative">
@@ -195,13 +213,13 @@ export default function NotFoundPage() {
                       placeholder="Aradığınızı buraya yazın..."
                     />
                     <button
-                      onClick={handleSearch}
+                      type="submit"
                       className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200 font-medium"
                     >
                       Ara
                     </button>
                   </div>
-                </div>
+                </form>
 
                 {/* Quick Navigation Links */}
                 <div className={`space-y-4 mb-8 lg:mb-10 transition-all duration-700 delay-400 ${
@@ -212,6 +230,7 @@ export default function NotFoundPage() {
                     {quickLinks.map((link, index) => (
                       <button
                         key={index}
+                        onClick={() => navigateTo(link.path)}
                         className="flex items-center space-x-4 p-4 lg:p-5 bg-white border-2 border-gray-200 rounded-xl hover:border-orange-300 hover:bg-gradient-to-br hover:from-gray-50 hover:to-orange-50 transition-all duration-300 group text-left"
                         style={{ transitionDelay: `${index * 100}ms` }}
                       >
@@ -231,7 +250,10 @@ export default function NotFoundPage() {
                 <div className={`space-y-4 transition-all duration-700 delay-600 ${
                   animatedElements ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
                 }`}>
-                  <button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 px-8 rounded-xl font-bold text-lg hover:from-orange-600 hover:to-orange-700 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-xl hover:shadow-2xl relative overflow-hidden group">
+                  <button 
+                    onClick={goToHome}
+                    className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 px-8 rounded-xl font-bold text-lg hover:from-orange-600 hover:to-orange-700 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-xl hover:shadow-2xl relative overflow-hidden group"
+                  >
                     <span className="relative z-10 flex items-center justify-center space-x-2">
                       <Home className="w-5 h-5" />
                       <span>Ana Sayfaya Dön</span>
@@ -240,11 +262,17 @@ export default function NotFoundPage() {
                   </button>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <button className="flex items-center justify-center px-6 py-3 border-2 border-gray-200 rounded-xl hover:border-orange-300 hover:bg-orange-50 transition-all duration-200 group">
+                    <button 
+                      onClick={goBack}
+                      className="flex items-center justify-center px-6 py-3 border-2 border-gray-200 rounded-xl hover:border-orange-300 hover:bg-orange-50 transition-all duration-200 group"
+                    >
                       <ArrowLeft className="w-5 h-5 text-gray-600 group-hover:text-orange-500 mr-2 transition-colors" />
                       <span className="text-gray-700 group-hover:text-orange-600 font-medium transition-colors">Geri Git</span>
                     </button>
-                    <button className="flex items-center justify-center px-6 py-3 border-2 border-gray-200 rounded-xl hover:border-orange-300 hover:bg-orange-50 transition-all duration-200 group">
+                    <button 
+                      onClick={refreshPage}
+                      className="flex items-center justify-center px-6 py-3 border-2 border-gray-200 rounded-xl hover:border-orange-300 hover:bg-orange-50 transition-all duration-200 group"
+                    >
                       <RefreshCw className="w-5 h-5 text-gray-600 group-hover:text-orange-500 mr-2 transition-colors" />
                       <span className="text-gray-700 group-hover:text-orange-600 font-medium transition-colors">Yenile</span>
                     </button>
