@@ -1,7 +1,8 @@
 import Register from "./Register";
 import Login from "./Login";
-import Error from "./Error"; 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Error from "./Error";
+
+import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 
 function App() {
   return (
