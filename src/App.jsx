@@ -1,6 +1,6 @@
 import Register from "./Register";
 import Login from "./Login";
-import NotFoundPage from "./NotFoundPage"; 
+import Error from "./Error"; 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Login />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/error" element={<Error />} />
       </Routes>
     </BrowserRouter>
   );
