@@ -255,7 +255,9 @@ export default function LoginPage() {
                       className="w-full bg-gradient-to-r from-orange-500 to-orange-600 text-white py-4 px-8 rounded-xl font-bold text-lg hover:from-orange-600 hover:to-orange-700 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-xl hover:shadow-2xl relative overflow-hidden group"
                     >
                       <span className="relative z-10 flex items-center justify-center space-x-2">
-                        <span>Giriş Yap</span>
+                        <Link to="/plans">
+                          <span>Giriş Yap</span>
+                        </Link>
                         <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                       </span>
                       <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
